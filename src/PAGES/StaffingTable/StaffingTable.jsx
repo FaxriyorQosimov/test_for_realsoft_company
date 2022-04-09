@@ -83,9 +83,16 @@ function StaffingTable() {
         setSlectedSchool(e.target.value)
     },[]) 
 
+    const editedNumber = useCallback((item) => {
+        let a = String(item).split('')
+        a.splice(a.length-3,0,' ');
+        a.splice(a.length-7,0,' ')
+        return a.join('')
+    }, [employees])
+
+
     return (
         <section className={classes.staffing_table_page}>
-            
             {
                 showModal && <Modal employees={employees} setEmployees={setEmployees} showModal={showModal} setShowModal={setShowModal} /> 
             }
@@ -97,7 +104,7 @@ function StaffingTable() {
                                 <th className={classes.td} rowSpan="3">{orderNumber}</th>
                                 <th className={classes.td} colSpan="3">{allSchools}</th>
                                 {
-                                    location.pathname == '/staff-table-direct' 
+                                    location.pathname == linkAsDirector 
                                     && <>
                                         <th className={classes.td} colSpan="8">{monthlySalary}</th> 
                                         <th className={classes.td} rowSpan="3">{forty}</th>
@@ -111,17 +118,19 @@ function StaffingTable() {
                                 <th className={classes.td} rowSpan="2">{position}</th>
                                 <th className={classes.td} rowSpan="2">{nameEmployee}</th>
                                 {
-                                    location.pathname == '/staff-table-direct' &&
+                                    location.pathname == linkAsDirector &&
                                     <>
                                         <th className={classes.td} colSpan="4">{fromSelectedDateToTable ? fromSelectedDateToTable[0].fromSelectedDate : '01.01.1991'} y <br/> {from}</th>
                                         <th className={classes.td} colSpan="4">{toSelectedDateToTable ? toSelectedDateToTable[0].toSelectedDate : 3423} y <br/> {to}</th>
                                     </>
                                 }
                             </tr>
-                            {
-                                location.pathname == '/staff-table-direct' 
-                                && <> {theadElements.map((theadElement, index) => <th key={index} className={classes.td}>{theadElement}</th>)} </>
-                            }
+                            <tr>
+                                {
+                                    location.pathname == linkAsDirector 
+                                    && <>{theadElements.map((theadElement, index) => <th key={index} className={classes.td}>{theadElement}</th>)} </>
+                                }
+                            </tr>
                         </thead>
                         <tbody>
                             {
@@ -134,46 +143,46 @@ function StaffingTable() {
                                         <td>{employee.position}</td>
                                         <td>{employee.name}</td>
                                         {
-                                            location.pathname == '/staff-table-direct' ? 
+                                            location.pathname == linkAsDirector ? 
                                                 <>
                                                     <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                        ? employee.stavka_1 
-                                                        : employee.stavka_2}
+                                                        ? editedNumber(employee.stavka_1) 
+                                                        : editedNumber(employee.stavka_2)}
                                                     </td>
                                                     <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                        ? employee.reward_1 
-                                                        : employee.reward_2}
+                                                        ? editedNumber(employee.reward_1) 
+                                                        : editedNumber(employee.reward_2)}
                                                     </td>
                                                     <td>
                                                         {
                                                             fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                            ? parseInt(employee.stavka_1) + parseInt(employee.reward_1) 
-                                                            : parseInt(employee.stavka_2) + parseInt(employee.reward_2)
+                                                            ? editedNumber(parseInt(employee.stavka_1) + parseInt(employee.reward_1)) 
+                                                            : editedNumber(parseInt(employee.stavka_2) + parseInt(employee.reward_2))
                                                         }
                                                     </td>
                                                     <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                        ? employee.capture_1 
-                                                        : employee.capture_2}
+                                                        ? editedNumber(employee.capture_1) 
+                                                        : editedNumber(employee.capture_2)}
                                                     </td>
 
                                                     <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                        ? employee.stavka_1 
-                                                        : employee.stavka_2}
+                                                        ? editedNumber(employee.stavka_1) 
+                                                        : editedNumber(employee.stavka_2)}
                                                     </td>
                                                     <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                        ? employee.reward_1 
-                                                        : employee.reward_2}
+                                                        ? editedNumber(employee.reward_1) 
+                                                        : editedNumber(employee.reward_2)}
                                                     </td>
                                                     <td>
                                                         {
                                                             toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                            ? parseInt(employee.stavka_1) + parseInt(employee.reward_1) 
-                                                            : parseInt(employee.stavka_2) + parseInt(employee.reward_2)
+                                                            ? editedNumber(parseInt(employee.stavka_1) + parseInt(employee.reward_1)) 
+                                                            : editedNumber(parseInt(employee.stavka_2) + parseInt(employee.reward_2))
                                                         }
                                                     </td>
                                                     <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                        ? employee.capture_1 
-                                                        : employee.capture_2}
+                                                        ? editedNumber(employee.capture_1) 
+                                                        : editedNumber(employee.capture_2)}
                                                     </td>
                                                     <td>
                                                         {
@@ -207,7 +216,7 @@ function StaffingTable() {
                 <footer className={classes.staffing_table_footer }>
                     <figure className={classes.staffing_table_footer_wrapper}>
                         {
-                            location.pathname == '/staff-table-direct' ? 
+                            location.pathname == linkAsDirector ? 
                             <>
                                 <figure>
                                     <button className={classes.staffing_table_btn} onClick={()=>setShowModal(prev => !prev)}>{add}</button>

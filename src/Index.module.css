@@ -13,6 +13,7 @@
 ::-webkit-scrollbar-track{
   background: #ccc;
 }
+/* *************************************   BODY   *************************************** */
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -28,14 +29,14 @@ a {
 code {
   font-family: 'Montserrat', sans-serif;
 }
-
+/* *************************************  cONTAINER    *************************************** */
 .container {
   margin: 0 auto;
   padding: 0 80px;
   max-width: 1420px;
   width: 100%;
 }
-
+/* *************************************  BU HOME PAGEDAGI HEADER UCHUN STYLE    *************************************** */
 .nav_block {
   padding: 0px 20px;
   height: 72px;
@@ -57,8 +58,6 @@ code {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    /* -webkit-box-pack: start; */
-    /* justify-content: flex-start; */
     height: 72px;
 }
 .nav_block_wrapper {
@@ -77,8 +76,8 @@ code {
   padding: 8px 16px;
   margin: 0 20px 0 18px;
   color: rgba(0, 0, 0, 0.87);
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-    background-color: #e0e0e0;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  background-color: #e0e0e0;
   transition:  background-color 450ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background 0.4s;
 }
 .logo {
@@ -127,10 +126,8 @@ code {
 }
 .register_lists {
   top: 48px;
-  /* opacity: 0; */
   width: 100%;
   z-index: 15;
-  /* visibility: hidden; */
   position: absolute;
   transition: all 0.2s ease;
   backdrop-filter: blur(24px);
@@ -138,7 +135,6 @@ code {
   border-radius: 5px;
   box-shadow: 0px 20px 60px rgb(0 0 0 / 10%);
 }
-
 .register_lists_none {
   opacity: 0;
   visibility: hidden;
@@ -167,6 +163,10 @@ code {
 .register_lists article:hover a  {
   color: #fff;
 }
+
+
+/* **********************************************************     HODIMLAR JADVALIGA STYLE BERISH**************************** */
+
 .staffing_table {
   width: 100%;
   margin-top: 5px;
@@ -195,8 +195,12 @@ table, th, td {
   border-collapse: collapse;
 }
 th, td, tr {
-  padding: 10px;
+  padding: 5px 12px;
   text-align: center;
+}
+td {
+  font-size: 15px;
+  padding: 5px 2px;
 }
 tbody tr:hover {
   background: #F5F5F5;
@@ -231,8 +235,8 @@ tbody tr:hover {
   outline: none;
   padding: 3px 16px;
   color: rgba(0, 0, 0, 0.87);
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-    background-color: #e0e0e0;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  background-color: #e0e0e0;
   transition:  background-color 450ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background 0.4s;
 }
 .staffing_table_btn:hover {
@@ -256,7 +260,6 @@ tbody tr:hover {
 .staffing_table_footer_wrapper > figure {
   width: 48%;display: flex;justify-content: flex-start;
 }
-
 .custom_checkbox {
   width: 100%;height: 100%;
   position: relative;
@@ -264,8 +267,7 @@ tbody tr:hover {
 }
 .custom_checkbox label {
   position: relative;
-  /* top: 0;left: 0; */
-  width: 40px;height: 20px;
+  width: 42px;height: 26px;
   cursor: pointer;
 }
 .custom_checkbox label input {
@@ -279,52 +281,41 @@ tbody tr:hover {
   width: 100%;height: 100%;
   border-radius: 80px;
   transition:  0.5s;
-  background: #fe0000;
-  box-shadow: 0 15px 25px #fe000066;
+  background: #E9E9EA;
 }
 .active_span {
-  background: #05be05;
-  box-shadow: 0 5px 15px #05be0566;
+  background:#65C466;
+  /* box-shadow: 0 5px 15px #05be0566; */
   position: absolute;
   top: 0;left: 0;
   width: 100%;height: 100%;
   border-radius: 80px;
   transition:  0.5s;
 }
-/* .custom_checkbox label input:checked ~ .unactive_span {
-  background: #05be05;
-  box-shadow: 0 5px 15px #05be0566;
-}
-.custom_checkbox label input:checked ~ .active_span {
-  background: #fe0000;
-  box-shadow: 0 15px 25px #fe000066;  
-} */
 .custom_checkbox label span .unactive_i {
-  left: 1px;
+  left: 2px;
   position: absolute;
-  top: 1px;
-  width: 18px;
-  height: 18px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
   background: #fff;
   border-radius: 50%;
   transition: 0.5s;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
 }
 .active_i {
   position: absolute;
-  left: 21px;
-  top: 1px;
-  width: 18px;
-  height: 18px;
+  left: 18px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
   background: #fff;
   border-radius: 50%;
   transition: 0.5s;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
 }
-/* .custom_checkbox label input:checked ~ span .unactive_i{
-  left: 21px;
-}
-.custom_checkbox label input:checked ~ span .active_i{
-  left: 1px;
-} */
+
+/* ********************************************************   LOADERGA STYLE BERISH    ******************************************* */
 
 .loading {
   position: relative;
