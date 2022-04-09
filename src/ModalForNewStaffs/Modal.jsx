@@ -48,7 +48,7 @@ function Modal({ setShowModal, employees}) {
                 <figure className={classess.modal_card_input}>
                     <form action="post" id="post_form" onSubmit={onHandle}>
                         <select>
-                            { schools.map((school, index) => <option value={school}>{school}</option>) }
+                            { schools.map((school, index) => <option key={index} value={school}>{school}</option>) }
                         </select>
                         { formElements.map(element => <input key={element.id} type={element.type} placeholder={element.placeholder} />) }
                         <select>{ trueAndFalse.map((element, index) => <option key={index} value={element}>{element}</option>) }</select>

@@ -5,24 +5,23 @@ import {db} from '../../Firebase/config';// CONFIG PAPKANI ICHIDAN DB FIREBASE M
 import { useLocation } from 'react-router-dom'; // USELOCATION SAYTNING URL MANZILINI OLISH CHAQIRILGAN
 import Modal from '../../ModalForNewStaffs/Modal';//YANGI USERLARNI QO'SHISH UCHUN MODAL COMPONENTI CHAQIRILGAN
 import {active, add, all, allSchools, forty, from, internship, nameEmployee, linkAsDirector, monthlySalary, orderNumber, position, school, schools, theadElements, to, trueAndFalse} from '../../Constants'
+import Loading from '../../Loading';// FIREBASEDAN MALUMOTLAR KELGUNCHA HARAKTLANIB TURUVCHI ANIMATION LOADING
 
 import 'react-datepicker/dist/react-datepicker.css';// DATEPICKER KALENDAR STYLE CHAQIRILGAN
 import classes from '../../Index.module.css';// STAFFINGTABLE PAGEGA STYLE BERISH UCHUN 
 import '../../style.css';
-import Loading from '../../Loading';
 
 
 function StaffingTable() {
     // // // /// /// // // // BARCHA STATELAR
-    const [employees, setEmployees ] = useState('');
-    const [fromSelectedDate, setFromSelectedDate] = useState(null);
-    const [toSelectedDate, setToSelectedDate] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [fromSelectedDateToTable, setFromSelectedDateTable] = useState('');
-    const [toSelectedDateToTable, setToSelectedDateTable] = useState('');
-    const [slectedActiveOrNoActive, setSlectedActiveOrNoActive] = useState(null);
-    const [slectedSchool, setSlectedSchool] = useState('');
-    // const [isPanding, startTransition] = useTransition();
+    const [employees, setEmployees ] = useState(''); // USHBU STATE FIREBASEDAN USER MALUMOTLARNI GET QILIB USHBU STATEGA JOYLAYDI
+    const [fromSelectedDate, setFromSelectedDate] = useState(null);//USHBU STATE SANA(DAN)NI O'ZIDA SAQLAYDI
+    const [toSelectedDate, setToSelectedDate] = useState(null);//USHBE STATE SANA(GACHA)NI O'ZIDA SAQLAYDI
+    const [showModal, setShowModal] = useState(false);//MODALNI OCHILIB YOPILISHINI TAMILAYDIGAN STATE
+    const [fromSelectedDateToTable, setFromSelectedDateTable] = useState('');// FIREBASEDAGI SANA(DAN) MALUMOTINI O'ZIDA SAQLASH UCHUN
+    const [toSelectedDateToTable, setToSelectedDateTable] = useState('');// FIREBASEDAGI SANA(GACHA) MALUMOTINI O'ZIDA SAQLASH UCHUN
+    const [slectedActiveOrNoActive, setSlectedActiveOrNoActive] = useState(null);// USHBU STATE AKTIV YOKI ACTIVE EMASLIGNI CHIQARADIGAN SELECT INPUTINI MALUMOTINI O'ZIDA SAQLAYDI
+    const [slectedSchool, setSlectedSchool] = useState('');// USHBU STATE SELECT INPUTINING VALUESINI SAQLAYDI
 
     // // // // // // // // // USELOCATION FUNKSIYA CHAQIRILGAN
     let location = useLocation()
@@ -31,10 +30,8 @@ function StaffingTable() {
     useEffect(()=>{
         const load = async () => {
             // BARCHA USERLAR GET QILINGAN
-            // startTransition(() => 
-                onSnapshot(collection(db, 'staffSalaries'),  (snapshot) => 
-                setEmployees(snapshot.docs.map(  (doc) => ({...doc.data(), defaultId: doc.id}))))
-            // )
+            onSnapshot(collection(db, 'staffSalaries'),  (snapshot) => 
+            setEmployees(snapshot.docs.map(  (doc) => ({...doc.data(), defaultId: doc.id}))))
             // QAYSI SANADAN 
             onSnapshot(collection(db, 'fromSelectedDate'),  (snapshot) => 
             setFromSelectedDateTable(snapshot.docs.map(  (doc) => ({...doc.data(), defaultId: doc.id}))));
@@ -91,7 +88,7 @@ function StaffingTable() {
         <section className={classes.staffing_table_page}>
             
             {
-                showModal ? <Modal employees={employees} setEmployees={setEmployees} showModal={showModal} setShowModal={setShowModal} /> : null
+                showModal && <Modal employees={employees} setEmployees={setEmployees} showModal={showModal} setShowModal={setShowModal} /> 
             }
             <hgroup className={classes.staffing_table_wrapper}>
             {employees ? <hgroup className={classes.staffing_table}>
@@ -102,11 +99,10 @@ function StaffingTable() {
                                 <th className={classes.td} colSpan="3">{allSchools}</th>
                                 {
                                     location.pathname == '/staff-table-direct' 
-                                    ? <>
+                                    && <>
                                         <th className={classes.td} colSpan="8">{monthlySalary}</th> 
                                         <th className={classes.td} rowSpan="3">{forty}</th>
                                     </>
-                                    : null
                                 }
                                 <th className={classes.td} rowSpan="3">{internship}</th>
                                 <th className={classes.td} rowSpan="3">{active}</th>
@@ -116,18 +112,16 @@ function StaffingTable() {
                                 <th className={classes.td} rowSpan="2">{position}</th>
                                 <th className={classes.td} rowSpan="2">{nameEmployee}</th>
                                 {
-                                    location.pathname == '/staff-table-direct' ? 
+                                    location.pathname == '/staff-table-direct' &&
                                     <>
                                         <th className={classes.td} colSpan="4">{fromSelectedDateToTable ? fromSelectedDateToTable[0].fromSelectedDate : '01.01.1991'} y <br/> {from}</th>
                                         <th className={classes.td} colSpan="4">{toSelectedDateToTable ? toSelectedDateToTable[0].toSelectedDate : 3423} y <br/> {to}</th>
                                     </>
-                                    : null
                                 }
                             </tr>
                             {
                                 location.pathname == '/staff-table-direct' 
-                                ? <> {theadElements.map((theadElement, index) => <th key={index} className={classes.td}>{theadElement}</th>)} </>
-                                : null
+                                && <> {theadElements.map((theadElement, index) => <th key={index} className={classes.td}>{theadElement}</th>)} </>
                             }
                         </thead>
                         <tbody>
