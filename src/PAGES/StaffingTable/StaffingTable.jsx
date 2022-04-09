@@ -83,7 +83,6 @@ function StaffingTable() {
         setSlectedSchool(e.target.value)
     },[]) 
 
-    console.log(employees);
     return (
         <section className={classes.staffing_table_page}>
             
