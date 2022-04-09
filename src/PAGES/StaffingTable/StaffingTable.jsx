@@ -5,12 +5,21 @@ import {db} from '../../Firebase/config';// CONFIG PAPKANI ICHIDAN DB FIREBASE M
 import { useLocation } from 'react-router-dom'; // USELOCATION SAYTNING URL MANZILINI OLISH CHAQIRILGAN
 import Modal from '../../ModalForNewStaffs/Modal';//YANGI USERLARNI QO'SHISH UCHUN MODAL COMPONENTI CHAQIRILGAN
 import {active, add, all, allSchools, forty, from, internship, nameEmployee, linkAsDirector, monthlySalary, orderNumber, position, school, schools, theadElements, to, trueAndFalse} from '../../Constants'
-import Loading from '../../Loading';// FIREBASEDAN MALUMOTLAR KELGUNCHA HARAKTLANIB TURUVCHI ANIMATION LOADING
+// import Loading from '../../Loading';// FIREBASEDAN MALUMOTLAR KELGUNCHA HARAKTLANIB TURUVCHI ANIMATION LOADING
 
 import 'react-datepicker/dist/react-datepicker.css';// DATEPICKER KALENDAR STYLE CHAQIRILGAN
 import classes from '../../Index.module.css';// STAFFINGTABLE PAGEGA STYLE BERISH UCHUN 
 import '../../style.css';
 
+// FIREBASEDAN MALUMOTLAR KELGUNCHA HARAKTLANIB TURUVCHI ANIMATION LOADING
+function Loading() {
+    return (
+        <div className={classes.loading}>
+            <div className={classes.loading_ring}></div>
+            <div className={classes.loading_progress}>Loading...</div>
+        </div>
+    )
+}
 
 function StaffingTable() {
     // // // /// /// // // // BARCHA STATELAR
@@ -40,6 +49,7 @@ function StaffingTable() {
             setToSelectedDateTable(snapshot.docs.map(  (doc) => ({...doc.data(), defaultId: doc.id}))));
         }
         load()
+        document.title = `realsoft-test`
     }, [])
 
     // // // // /// / // // / YANGI SANA KIRITILGANDA QIYMATNI JADVALGA SAQLAYDIGAN FUNKSIYA(DAN)
@@ -52,7 +62,7 @@ function StaffingTable() {
         const payload1 = await {fromSelectedDate: (day<10?'0'+day:day)+'.'+(month<10?'0'+month:month)+'.'+fullYear}
         setDoc(docRef1, payload1)
         setFromSelectedDate(date)
-    }, [fromSelectedDate])
+    }, [])
 
     // // // // /// / // // / YANGI SANA KIRITILGANDA QIYMATNI JADVALGA SAQLAYDIGAN FUNKSIYA(GACHA)
     const handleToDatePicker = useCallback( async (toDate) => {
@@ -64,7 +74,7 @@ function StaffingTable() {
         const payload1 = await {toSelectedDate: (day<10?'0'+day:day)+'.'+(month<10?'0'+month:month)+'.'+fullYear}
         setDoc(docRef1, payload1)
         setToSelectedDate(date)
-    }, [toSelectedDate])
+    }, [])
 
     // // // // // // /// /// USERLANI ACTIVE YOKI NOACTIVE QILADIGAN FUNKSIYA
     const handleCheckboxCustom = useCallback(async (employee) => {
@@ -83,6 +93,7 @@ function StaffingTable() {
         setSlectedSchool(e.target.value)
     },[]) 
 
+    /// // /// //// //// ///  USHBU FUNKSIYA OYLIKLARNI QIYMATINI BOLAKLARGA BOLIB BERADI MASALAN: KIRADI > 1234567, CHIQADI > 1 234 567
     const editedNumber = useCallback((item) => {
         let a = String(item).split('')
         a.splice(a.length-3,0,' ');
@@ -148,42 +159,50 @@ function StaffingTable() {
                                                     <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
                                                         ? editedNumber(employee.stavka_1) 
                                                         : editedNumber(employee.stavka_2)}
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA BAZAVIY TARIF STAVKASINING QIYMATI STAVKA_1GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA STAVKA_2GA TENG BO'LADI */}
                                                     <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
                                                         ? editedNumber(employee.reward_1) 
                                                         : editedNumber(employee.reward_2)}
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA USTAMALARNING QIYMATI REWARD_1 GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA REWARD_2 GA TENG BO'LADI */}
                                                     <td>
                                                         {
                                                             fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
                                                             ? editedNumber(parseInt(employee.stavka_1) + parseInt(employee.reward_1)) 
                                                             : editedNumber(parseInt(employee.stavka_2) + parseInt(employee.reward_2))
                                                         }
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA ISH HAQI(USTAMALAR BILAN)NING QIYMATI STAVKA_1 BILAN REWARD_1GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA STAVKA_2 BILAN REWARD_2GA  TENG BO'LADI */}
                                                     <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
                                                         ? editedNumber(employee.capture_1) 
                                                         : editedNumber(employee.capture_2)}
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA QO'LGA OLINADIGAN ISH MIQDORINING QIYMATI CAPRURE_1 GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA CAPTURE_2 GA TENG BO'LADI */}
 
                                                     <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
                                                         ? editedNumber(employee.stavka_1) 
                                                         : editedNumber(employee.stavka_2)}
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA BAZAVIY TARIF STAVKASINING QIYMATI STAVKA_1GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA STAVKA_2GA TENG BO'LADI */}
                                                     <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
                                                         ? editedNumber(employee.reward_1) 
                                                         : editedNumber(employee.reward_2)}
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA USTAMALARNING QIYMATI REWARD_1 GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA REWARD_2 GA TENG BO'LADI */}
                                                     <td>
                                                         {
                                                             toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
                                                             ? editedNumber(parseInt(employee.stavka_1) + parseInt(employee.reward_1)) 
                                                             : editedNumber(parseInt(employee.stavka_2) + parseInt(employee.reward_2))
                                                         }
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA ISH HAQI(USTAMALAR BILAN)NING QIYMATI STAVKA_1 BILAN REWARD_1GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA STAVKA_2 BILAN REWARD_2GA  TENG BO'LADI */}
                                                     <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
                                                         ? editedNumber(employee.capture_1) 
                                                         : editedNumber(employee.capture_2)}
-                                                    </td>
+                                                    </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA QO'LGA OLINADIGAN ISH MIQDORINING QIYMATI CAPRURE_1 GA TENG BO'LADI,
+                                                            AKSINCHA 2022-YIL BO'LSA CAPTURE_2 GA TENG BO'LADI */}
                                                     <td>
                                                         {
                                                             parseFloat(((fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
@@ -191,10 +210,10 @@ function StaffingTable() {
                                                             ? employee.capture_2 / employee.capture_1 * 100 
                                                             : employee.capture_1 / employee.capture_1 * 100) - 100).toFixed(2)
                                                         }
-                                                    </td>
+                                                    </td>{/* BU YERDA ESKI QO'LGA OLINADIGAN ISH HAQI MIQDORINING QIYMATI 2022-YILDA NECHA FOIZGA OSHGANINI CHIQARADI */}
                                                 </>
                                             : null
-                                        }
+                                        }{/* AGAR USER DIRECTOR SIFATIDA KIRSA OYLIKLAR KO'RINADI, AKSINCHA ODDIY HODIM SIFATIDA KIRSA OYLIKLAR JADVALI YOQ BOLADI */}
                                         <td>{employee.internship}</td>
                                         <td>
                                             <article className={classes.custom_checkbox}>
@@ -239,7 +258,7 @@ function StaffingTable() {
                                         />
                                 </figure>
                             </> : null
-                        }
+                        } {/* AGAR USER DIRECTOR SIFATIDA KIRSA SANA QO'SHISH KO'RINADI, AKSINCHA ODDIY HODIM SIFATIDA KIRSA SANA QO'SHISH INPUTI YOQ BOLADI */}
                         <figure>
                             <select onChange={(e)=> changeActiveOrNoActive(e)} className={classes.staffing_table_btn}>
                                 <option value={"all"}>{all}</option>
