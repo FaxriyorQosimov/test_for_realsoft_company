@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {BrowserRouter} from 'react-router-dom';
 import HomePage from './PAGES/HomePage/HomePage';
 import StaffingTable from './PAGES/StaffingTable/StaffingTable';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { linkAsDirector, linkAsEmployee, linkHomePage } from './Constants';
 
 function Main() {

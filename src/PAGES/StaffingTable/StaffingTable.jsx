@@ -131,8 +131,8 @@ function StaffingTable() {
                                 {
                                     location.pathname == linkAsDirector &&
                                     <>
-                                        <th className={classes.td} colSpan="4">{fromSelectedDateToTable ? fromSelectedDateToTable[0].fromSelectedDate : '01.01.1991'} y <br/> {from}</th>
-                                        <th className={classes.td} colSpan="4">{toSelectedDateToTable ? toSelectedDateToTable[0].toSelectedDate : 3423} y <br/> {to}</th>
+                                        <th className={classes.td} colSpan="4">{fromSelectedDateToTable ? fromSelectedDateToTable[0]?.fromSelectedDate : '01.01.1991'} y <br/> {from}</th>
+                                        <th className={classes.td} colSpan="4">{toSelectedDateToTable ? toSelectedDateToTable[0]?.toSelectedDate : 3423} y <br/> {to}</th>
                                     </>
                                 }
                             </tr>
@@ -145,82 +145,82 @@ function StaffingTable() {
                         </thead>
                         <tbody>
                             {
-                               employees && employees.filter(filtered => slectedActiveOrNoActive ? slectedActiveOrNoActive == 'all' ? true : filtered.vizible.toString() == slectedActiveOrNoActive : true)
-                               .filter(filtered => slectedSchool ? slectedSchool == 'all' ? true : filtered.school == slectedSchool : true)
+                               employees && employees.filter(filtered => slectedActiveOrNoActive ? slectedActiveOrNoActive == 'all' ? true : filtered?.vizible.toString() == slectedActiveOrNoActive : true)
+                               .filter(filtered => slectedSchool ? slectedSchool == 'all' ? true : filtered?.school == slectedSchool : true)
                                .map((employee, index) => 
-                                    <tr key={employee.id}>
+                                    <tr key={employee?.id}>
                                         <td>{index+1}</td>
-                                        <td>{ employee.school}</td>
-                                        <td>{employee.position}</td>
-                                        <td>{employee.name}</td>
+                                        <td>{ employee?.school}</td>
+                                        <td>{employee?.position}</td>
+                                        <td>{employee?.name}</td>
                                         {
                                             location.pathname == linkAsDirector ? 
                                                 <>
-                                                    <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                        ? editedNumber(employee.stavka_1) 
-                                                        : editedNumber(employee.stavka_2)}
+                                                    <td>{fromSelectedDateToTable && fromSelectedDateToTable[0]?.fromSelectedDate.slice(6,10) < 2022 
+                                                        ? editedNumber(employee?.stavka_1) 
+                                                        : editedNumber(employee?.stavka_2)}
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA BAZAVIY TARIF STAVKASINING QIYMATI STAVKA_1GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA STAVKA_2GA TENG BO'LADI */}
-                                                    <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                        ? editedNumber(employee.reward_1) 
-                                                        : editedNumber(employee.reward_2)}
+                                                    <td>{fromSelectedDateToTable && fromSelectedDateToTable[0]?.fromSelectedDate.slice(6,10) < 2022 
+                                                        ? editedNumber(employee?.reward_1) 
+                                                        : editedNumber(employee?.reward_2)}
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA USTAMALARNING QIYMATI REWARD_1 GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA REWARD_2 GA TENG BO'LADI */}
                                                     <td>
                                                         {
-                                                            fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                            ? editedNumber(parseInt(employee.stavka_1) + parseInt(employee.reward_1)) 
-                                                            : editedNumber(parseInt(employee.stavka_2) + parseInt(employee.reward_2))
+                                                            fromSelectedDateToTable && fromSelectedDateToTable[0]?.fromSelectedDate.slice(6,10) < 2022 
+                                                            ? editedNumber(parseInt(employee?.stavka_1) + parseInt(employee?.reward_1)) 
+                                                            : editedNumber(parseInt(employee?.stavka_2) + parseInt(employee?.reward_2))
                                                         }
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA ISH HAQI(USTAMALAR BILAN)NING QIYMATI STAVKA_1 BILAN REWARD_1GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA STAVKA_2 BILAN REWARD_2GA  TENG BO'LADI */}
-                                                    <td>{fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                        ? editedNumber(employee.capture_1) 
-                                                        : editedNumber(employee.capture_2)}
+                                                    <td>{fromSelectedDateToTable && fromSelectedDateToTable[0]?.fromSelectedDate.slice(6,10) < 2022 
+                                                        ? editedNumber(employee?.capture_1) 
+                                                        : editedNumber(employee?.capture_2)}
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA QO'LGA OLINADIGAN ISH MIQDORINING QIYMATI CAPRURE_1 GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA CAPTURE_2 GA TENG BO'LADI */}
 
-                                                    <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                        ? editedNumber(employee.stavka_1) 
-                                                        : editedNumber(employee.stavka_2)}
+                                                    <td>{toSelectedDateToTable && toSelectedDateToTable[0]?.toSelectedDate.slice(6,10) < 2022 
+                                                        ? editedNumber(employee?.stavka_1) 
+                                                        : editedNumber(employee?.stavka_2)}
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA BAZAVIY TARIF STAVKASINING QIYMATI STAVKA_1GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA STAVKA_2GA TENG BO'LADI */}
-                                                    <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                        ? editedNumber(employee.reward_1) 
-                                                        : editedNumber(employee.reward_2)}
+                                                    <td>{toSelectedDateToTable && toSelectedDateToTable[0]?.toSelectedDate.slice(6,10) < 2022 
+                                                        ? editedNumber(employee?.reward_1) 
+                                                        : editedNumber(employee?.reward_2)}
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA USTAMALARNING QIYMATI REWARD_1 GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA REWARD_2 GA TENG BO'LADI */}
                                                     <td>
                                                         {
-                                                            toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                            ? editedNumber(parseInt(employee.stavka_1) + parseInt(employee.reward_1)) 
-                                                            : editedNumber(parseInt(employee.stavka_2) + parseInt(employee.reward_2))
+                                                            toSelectedDateToTable && toSelectedDateToTable[0]?.toSelectedDate.slice(6,10) < 2022 
+                                                            ? editedNumber(parseInt(employee?.stavka_1) + parseInt(employee?.reward_1)) 
+                                                            : editedNumber(parseInt(employee?.stavka_2) + parseInt(employee?.reward_2))
                                                         }
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA ISH HAQI(USTAMALAR BILAN)NING QIYMATI STAVKA_1 BILAN REWARD_1GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA STAVKA_2 BILAN REWARD_2GA  TENG BO'LADI */}
-                                                    <td>{toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) < 2022 
-                                                        ? editedNumber(employee.capture_1) 
-                                                        : editedNumber(employee.capture_2)}
+                                                    <td>{toSelectedDateToTable && toSelectedDateToTable[0]?.toSelectedDate.slice(6,10) < 2022 
+                                                        ? editedNumber(employee?.capture_1) 
+                                                        : editedNumber(employee?.capture_2)}
                                                     </td>{/* BU YERDA SANA 2022-YILDAN KICHKINA KELSA QO'LGA OLINADIGAN ISH MIQDORINING QIYMATI CAPRURE_1 GA TENG BO'LADI,
                                                             AKSINCHA 2022-YIL BO'LSA CAPTURE_2 GA TENG BO'LADI */}
                                                     <td>
                                                         {
-                                                            parseFloat(((fromSelectedDateToTable && fromSelectedDateToTable[0].fromSelectedDate.slice(6,10) < 2022 
-                                                            && toSelectedDateToTable && toSelectedDateToTable[0].toSelectedDate.slice(6,10) > 2021 ) 
-                                                            ? employee.capture_2 / employee.capture_1 * 100 
-                                                            : employee.capture_1 / employee.capture_1 * 100) - 100).toFixed(2)
+                                                            parseFloat(((fromSelectedDateToTable && fromSelectedDateToTable[0]?.fromSelectedDate.slice(6,10) < 2022 
+                                                            && toSelectedDateToTable && toSelectedDateToTable[0]?.toSelectedDate.slice(6,10) > 2021 ) 
+                                                            ? employee?.capture_2 / employee?.capture_1 * 100 
+                                                            : employee?.capture_1 / employee?.capture_1 * 100) - 100).toFixed(2)
                                                         }
                                                     </td>{/* BU YERDA ESKI QO'LGA OLINADIGAN ISH HAQI MIQDORINING QIYMATI 2022-YILDA NECHA FOIZGA OSHGANINI CHIQARADI */}
                                                 </>
                                             : null
                                         }{/* AGAR USER DIRECTOR SIFATIDA KIRSA OYLIKLAR KO'RINADI, AKSINCHA ODDIY HODIM SIFATIDA KIRSA OYLIKLAR JADVALI YOQ BOLADI */}
-                                        <td>{employee.internship}</td>
+                                        <td>{employee?.internship}</td>
                                         <td>
                                             <article className={classes.custom_checkbox}>
                                                 <label onClick={() => handleCheckboxCustom(employee)}>
                                                     <input type="checkbox"/>
-                                                    <span className={employee.vizible ? classes.active_span : classes.unactive_span}>
-                                                        <i className={employee.vizible ? classes.active_i : classes.unactive_i}></i>
+                                                    <span className={employee?.vizible ? classes.active_span : classes.unactive_span}>
+                                                        <i className={employee?.vizible ? classes.active_i : classes.unactive_i}></i>
                                                     </span>
                                                 </label>
                                             </article>

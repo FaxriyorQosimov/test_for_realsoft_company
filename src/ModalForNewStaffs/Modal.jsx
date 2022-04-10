@@ -23,22 +23,8 @@ function Modal({ setShowModal, employees}) {
             capture_2: e.target[9].value,
             vizible: e.target[10].value
         };
-
-        if(e.target[1].value && 
-            e.target[2].value && 
-            e.target[3].value && 
-            e.target[4].value && 
-            e.target[5].value && 
-            e.target[6].value && 
-            e.target[7].value && 
-            e.target[8].value && 
-            e.target[9].value
-            ){
-                setDoc(collectionRef, payload1)
-                setShowModal(false)
-            } else {
-                alert("Iltimos formani to'ldiring...")
-            }
+        setDoc(collectionRef, payload1)
+        setShowModal(false)
     }
     return (
         <section className={classess.modal}>
@@ -50,7 +36,7 @@ function Modal({ setShowModal, employees}) {
                         <select>
                             { schools.map((school, index) => <option key={index} value={school}>{school}</option>) }
                         </select>
-                        { formElements.map(element => <input key={element.id} type={element.type} placeholder={element.placeholder} />) }
+                        { formElements.map(element => <input required key={element?.id} type={element?.type} placeholder={element?.placeholder} />) }
                         <select>{ trueAndFalse.map((element, index) => <option key={index} value={element}>{element}</option>) }</select>
                         <button form="post_form" type="submit">{saveBtnText}</button>
                     </form>
